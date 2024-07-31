@@ -14,6 +14,11 @@
 		13AECB672C5A6BFB00728050 /* EventCountdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB662C5A6BFB00728050 /* EventCountdownTests.swift */; };
 		13AECB712C5A6BFB00728050 /* EventCountdownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB702C5A6BFB00728050 /* EventCountdownUITests.swift */; };
 		13AECB732C5A6BFB00728050 /* EventCountdownUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB722C5A6BFB00728050 /* EventCountdownUITestsLaunchTests.swift */; };
+		13AECB802C5A71AA00728050 /* EventViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB7F2C5A71AA00728050 /* EventViewCell.swift */; };
+		13AECB822C5A803500728050 /* EventsSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB812C5A803500728050 /* EventsSidebarView.swift */; };
+		13AECB842C5A953100728050 /* CreateEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB832C5A953100728050 /* CreateEventView.swift */; };
+		13AECB862C5A95B500728050 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB852C5A95B500728050 /* EditEventView.swift */; };
+		13AECB882C5A967800728050 /* EventsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB872C5A967800728050 /* EventsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,11 @@
 		13AECB6C2C5A6BFB00728050 /* EventCountdownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventCountdownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13AECB702C5A6BFB00728050 /* EventCountdownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCountdownUITests.swift; sourceTree = "<group>"; };
 		13AECB722C5A6BFB00728050 /* EventCountdownUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCountdownUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		13AECB7F2C5A71AA00728050 /* EventViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewCell.swift; sourceTree = "<group>"; };
+		13AECB812C5A803500728050 /* EventsSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsSidebarView.swift; sourceTree = "<group>"; };
+		13AECB832C5A953100728050 /* CreateEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventView.swift; sourceTree = "<group>"; };
+		13AECB852C5A95B500728050 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
+		13AECB872C5A967800728050 /* EventsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,11 @@
 				13AECB572C5A6BFA00728050 /* ContentView.swift */,
 				13AECB592C5A6BFB00728050 /* Assets.xcassets */,
 				13AECB5B2C5A6BFB00728050 /* Preview Content */,
+				13AECB7F2C5A71AA00728050 /* EventViewCell.swift */,
+				13AECB812C5A803500728050 /* EventsSidebarView.swift */,
+				13AECB832C5A953100728050 /* CreateEventView.swift */,
+				13AECB852C5A95B500728050 /* EditEventView.swift */,
+				13AECB872C5A967800728050 /* EventsManager.swift */,
 			);
 			path = EventCountdown;
 			sourceTree = "<group>";
@@ -257,7 +272,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13AECB822C5A803500728050 /* EventsSidebarView.swift in Sources */,
+				13AECB882C5A967800728050 /* EventsManager.swift in Sources */,
 				13AECB582C5A6BFA00728050 /* ContentView.swift in Sources */,
+				13AECB862C5A95B500728050 /* EditEventView.swift in Sources */,
+				13AECB842C5A953100728050 /* CreateEventView.swift in Sources */,
+				13AECB802C5A71AA00728050 /* EventViewCell.swift in Sources */,
 				13AECB562C5A6BFA00728050 /* EventCountdownApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

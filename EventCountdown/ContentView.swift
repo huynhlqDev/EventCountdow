@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @ObservedObject private var eventsManager = EventsManager.shared
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationSplitView {
+            EventsSidebarView(events: eventsManager.readEvents())
+        } detail: {
+            ContentUnavailableView("No event selected", systemImage: "swatchpalette")
         }
-        .padding()
     }
 }
 
