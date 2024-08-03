@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct CreateEventView: View {
-    enum DatePickerStyle {
-        case graphical
-        case wheel
+    enum ViewState {
+        case normal
+        case titleEditing
+        case showDatePicker
+        case showTimePicker
+        case presentColorView
     }
 
     @Environment(\.dismiss) var dismiss
@@ -18,15 +21,20 @@ struct CreateEventView: View {
     @State private var date: Date = Date()
     @State private var color: Color = .purple
 
-    @State private var showPopover = false
+    @State private var viewState: ViewState = .normal
 
     var body: some View {
         List {
-
             // add title
-            TextField("Title", text: $title)
-                .cornerRadius(8)
-                .keyboardType(.default)
+            TextField(
+                "Title",
+                text: $title,
+                onEditingChanged: { _ in
+                    toggleState(.titleEditing)
+                }
+            )
+            .cornerRadius(8)
+            .keyboardType(.default)
 
             // add date time
             HStack {
@@ -37,8 +45,7 @@ struct CreateEventView: View {
 
                 Button(
                     action: {
-                        print("showPopover.toggle()")
-                        showPopover.toggle()
+                        toggleState(.showDatePicker)
                     },
                     label: {
                         Text(date.formattedDate())
@@ -47,22 +54,11 @@ struct CreateEventView: View {
                             .cornerRadius(8)
                             .foregroundStyle(.black)
                     }
-                )
-
-//                .popover(isPresented: $showPopover, content: {
-//                    DatePicker(
-//                        "Date event",
-//                        selection: $date,
-//                        displayedComponents: [.date]
-//                    )
-//                    .datePickerStyle(.graphical)
-//                    .padding()
-//                    .frame(width: 100, height: 200)
-//                })
+                ).buttonStyle(PlainButtonStyle())
 
                 Button(
                     action: {
-                        showPopover.toggle()
+                        toggleState(.showTimePicker)
                     },
                     label: {
                         Text(date.formattedDateWithTime())
@@ -70,14 +66,27 @@ struct CreateEventView: View {
                             .background(Color.gray)
                             .cornerRadius(8)
                             .foregroundStyle(.black)
-                    })
+                    }
+                ).buttonStyle(PlainButtonStyle())
+            }
+            if viewState == .showDatePicker {
+                DatePicker(
+                    "Date event",
+                    selection: $date,
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(.graphical)
+            } else if viewState == .showTimePicker {
+                DatePicker(
+                    "Date event",
+                    selection: $date,
+                    displayedComponents: [.hourAndMinute]
+                )
+                .datePickerStyle(.wheel)
             }
 
             // add color
             Text("Text Color")
-        }
-        .onTapGesture {
-            hideKeyboard()
         }
 
         // config navigator
@@ -104,9 +113,18 @@ struct CreateEventView: View {
         }
     }
 
+    private func toggleState(_ state: ViewState) {
+        if viewState == state {
+            viewState = .normal
+        } else {
+            viewState = state
+        }
+    }
+
     private func hideKeyboard() {
         UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil
+            #selector(UIResponder.resignFirstResponder), 
+            to: nil, from: nil, for: nil
         )
     }
 }
