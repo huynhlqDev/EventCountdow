@@ -15,6 +15,13 @@ struct EventsSidebarView: View {
             NavigationLink(destination: EditEventView(event: event)) {
                 EventViewCell(event: event)
             }
+            .swipeActions() {
+                Button(role: .destructive) {
+                    EventsManager.shared.deleteEvent(id: event.id)
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
         }
         .navigationTitle("Events")
         .toolbar {
