@@ -23,8 +23,10 @@ struct CreateEventView: View {
 
     @State private var viewState: ViewState = .normal
 
+    @State private var pickerPosition: CGRect = .zero
+
     var body: some View {
-        List {
+        ZStack (alignment: .top) {List {
             // add title
             TextField(
                 "Title",
@@ -33,8 +35,10 @@ struct CreateEventView: View {
                     toggleState(.titleEditing)
                 }
             )
+            .foregroundStyle(color)
             .cornerRadius(8)
             .keyboardType(.default)
+            .frame(height: 30)
 
             // add date time
             HStack {
@@ -50,11 +54,19 @@ struct CreateEventView: View {
                     label: {
                         Text(date.formattedDate())
                             .padding()
-                            .background(Color.gray)
+                            .background(Color(UIColor.systemGray5))
                             .cornerRadius(8)
-                            .foregroundStyle(.black)
                     }
                 ).buttonStyle(PlainButtonStyle())
+                    .background {
+                        GeometryReader { geo in
+                            Color.clear
+                                .onAppear {
+                                    print(geo.frame(in: .global))
+                                    pickerPosition = geo.frame(in: .global)
+                                }
+                        }
+                    }
 
                 Button(
                     action: {
@@ -63,39 +75,63 @@ struct CreateEventView: View {
                     label: {
                         Text(date.formattedDateWithTime())
                             .padding()
-                            .background(Color.gray)
+                            .background(Color(UIColor.systemGray5))
                             .cornerRadius(8)
-                            .foregroundStyle(.black)
                     }
-                ).buttonStyle(PlainButtonStyle())
-            }
-            if viewState == .showDatePicker {
-                DatePicker(
-                    "Date event",
-                    selection: $date,
-                    displayedComponents: [.date]
                 )
-                .datePickerStyle(.graphical)
-            } else if viewState == .showTimePicker {
-                DatePicker(
-                    "Date event",
-                    selection: $date,
-                    displayedComponents: [.hourAndMinute]
-                )
-                .datePickerStyle(.wheel)
+                .buttonStyle(PlainButtonStyle())
+
             }
+            .frame(height: 50)
 
             // add color
-            Text("Text Color")
+            ColorPicker("Text Color", selection: $color)
+                .frame(height: 30)
+        }
+        .scrollDisabled(true)
+
+
+            // Display DatePicker based on the state
+            if viewState == .showDatePicker {
+                VStack {
+                    Spacer()
+                    DatePicker(
+                        "Date event",
+                        selection: $date,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(.graphical)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .padding(.horizontal)
+                    .frame(height: 300)
+                }
+                .frame(width: UIScreen.main.bounds.width, height: 300)
+                .offset(y: pickerPosition.maxY - (pickerPosition.height * 3/2))
+            } else if viewState == .showTimePicker {
+                VStack {
+                    Spacer()
+                    DatePicker(
+                        "Date event",
+                        selection: $date,
+                        displayedComponents: [.hourAndMinute]
+                    )
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 0)
+                    .frame(height: 200)
+                }
+                .frame(width: UIScreen.main.bounds.width, height: 200)
+                .offset(y: pickerPosition.maxY - (pickerPosition.height * 3/2))
+            }
         }
 
         // config navigator
+        .navigationBarTitle("Add Event", displayMode: .inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Add Event")
-                    .font(.headline)
-            }
-
             ToolbarItem(placement: .topBarTrailing) {
                 Button(
                     action: {
@@ -121,11 +157,8 @@ struct CreateEventView: View {
         }
     }
 
-    private func hideKeyboard() {
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder), 
-            to: nil, from: nil, for: nil
-        )
+    private func endEditing() {
+        UIApplication.shared.endEditing()
     }
 }
 
