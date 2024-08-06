@@ -7,8 +7,14 @@
 
 import SwiftUI
 
-struct CreateEventView: View {
-    enum ViewState {
+enum EventInfoViewType {
+    case edit
+    case addNew
+}
+
+struct EventInfoView: View {
+
+    private enum ViewState {
         case normal
         case titleEditing
         case showDatePicker
@@ -16,15 +22,17 @@ struct CreateEventView: View {
         case presentColorView
     }
 
-    @Environment(\.dismiss) var dismiss
-    @State private var title: String = ""
-    @State private var date: Date = Date()
-    @State private var color: Color = .purple
-
     @State private var viewState: ViewState = .normal
-
     @State private var pickerPosition: CGRect = .zero
+    @State var title: String = ""
+    @State var date: Date = .now
+    @State var color: Color = .purple
+    @State var naviTitle: String = "Add Event"
 
+    @Environment(\.dismiss) var dismiss
+
+    @State var viewType: EventInfoViewType = .addNew
+    var event: Event?
     var body: some View {
         ZStack (alignment: .top) {List {
             // add title
@@ -62,7 +70,6 @@ struct CreateEventView: View {
                         GeometryReader { geo in
                             Color.clear
                                 .onAppear {
-                                    print(geo.frame(in: .global))
                                     pickerPosition = geo.frame(in: .global)
                                 }
                         }
@@ -89,8 +96,6 @@ struct CreateEventView: View {
                 .frame(height: 30)
         }
         .scrollDisabled(true)
-
-
             // Display DatePicker based on the state
             if viewState == .showDatePicker {
                 VStack {
@@ -130,21 +135,45 @@ struct CreateEventView: View {
         }
 
         // config navigator
-        .navigationBarTitle("Add Event", displayMode: .inline)
+        .navigationBarTitle(naviTitle, displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(
                     action: {
-                        EventsManager.shared.createEvent(
-                            title: title,
-                            date: date,
-                            color: color
-                        )
+                        let eventManager = EventsManager.shared
+                        switch viewType {
+                        case .edit:
+                            guard let event else { return }
+                            eventManager.updateEvent(
+                                id: event.id,
+                                title: title,
+                                date: date,
+                                textColor: color
+                            )
+                        case .addNew:
+                            eventManager.createEvent(
+                                title: title,
+                                date: date,
+                                color: color
+                            )
+                        }
                         dismiss()
                     }, label: {
                         Image(systemName: "checkmark")
                     }
-                )
+                ).disabled(title == "")
+            }
+
+        }
+
+        .onAppear {
+            withAnimation {
+                guard let event else { return }
+                naviTitle = event.title
+                title = event.title
+                date = event.date
+                color = event.textColor
+                viewType = .edit
             }
         }
     }
@@ -164,6 +193,6 @@ struct CreateEventView: View {
 
 #Preview {
     NavigationStack {
-        CreateEventView()
+        EventInfoView()
     }
 }

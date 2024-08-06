@@ -12,7 +12,7 @@ struct ContentView: View {
     @ObservedObject private var eventsManager = EventsManager.shared
     var body: some View {
         NavigationSplitView {
-            EventsSidebarView(events: eventsManager.readEvents())
+            EventsSidebarView(events: eventsManager.readEvents().sorted())
         } detail: {
             ContentUnavailableView("No event selected", systemImage: "swatchpalette")
         }

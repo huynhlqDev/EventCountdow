@@ -16,7 +16,7 @@ struct EventViewCell: View {
                 Text(event.title)
                     .font(.title)
                     .bold()
-                    .foregroundColor(event.color)
+                    .foregroundColor(event.textColor)
                 Text(getRemainTime())
             }
             Spacer()
@@ -35,7 +35,7 @@ struct EventViewCell: View {
         let futureDateWithHours = Calendar.current.date(
             byAdding: .hour,
             value: 5,
-            to: futureDate
+            to: event.date
         )!
         let components = calendar.dateComponents(
             [.month, .hour],
@@ -63,7 +63,7 @@ struct EventViewCell: View {
 
 #Preview {
     List {
-        EventViewCell(event: Event(title: "Ahihi", date: Date(), color: .blue))
-        EventViewCell(event: Event(title: "Ahihi", date: Date(), color: .red))
+        EventViewCell(event: Event(title: "Ahihi", date: Date(), textColor: .blue))
+        EventViewCell(event: Event(title: "Ahihi", date: Date(), textColor: .red))
     }
 }

@@ -12,7 +12,9 @@ struct EventsSidebarView: View {
 
     var body: some View {
         List(events) { event in
-            NavigationLink(destination: EditEventView(event: event)) {
+            NavigationLink(
+                destination: EventInfoView(event: event)
+            ) {
                 EventViewCell(event: event)
             }
             .swipeActions() {
@@ -26,7 +28,9 @@ struct EventsSidebarView: View {
         .navigationTitle("Events")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: CreateEventView()) {
+                NavigationLink(
+                    destination: EventInfoView()
+                ) {
                     Image(systemName: "plus")
                 }
             }
