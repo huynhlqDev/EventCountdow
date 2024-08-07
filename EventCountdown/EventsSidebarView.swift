@@ -26,7 +26,9 @@ struct EventsSidebarView: View {
                 }
                 .navigationTitle("Events")
                 .navigationDestination(for: Event.self) { event in
-                    EventInfoView(event: event)
+                    EventInfoView(event: event) { event in
+                        EventsManager.shared.updateEvent(event)
+                    }
                 }
             }
             .toolbar {
@@ -37,7 +39,9 @@ struct EventsSidebarView: View {
                     .navigationDestination(for: String.self) { value in
                         switch value {
                         case "addNew":
-                            EventInfoView()
+                            EventInfoView() { event in
+                                EventsManager.shared.createEvent(event)
+                            }
                         default:
                             EmptyView()
                         }

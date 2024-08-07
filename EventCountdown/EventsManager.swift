@@ -38,8 +38,7 @@ final class EventsManager: ObservableObject {
     ]
 
     // create event
-    func createEvent(title: String, date: Date, color: Color) {
-        let newEvent = Event(title: title, date: date, textColor: color)
+    func createEvent(_ newEvent: Event) {
         events.append(newEvent)
     }
 
@@ -49,22 +48,9 @@ final class EventsManager: ObservableObject {
     }
 
     // update event
-    func updateEvent(
-        id: UUID,
-        title: String?,
-        date: Date?,
-        textColor: Color?
-    ) {
-        guard let index = events.firstIndex(where: { $0.id == id }) else { return }
-        if let title = title {
-            events[index].title = title
-        }
-        if let date = date {
-            events[index].date = date
-        }
-        if let textColor = textColor {
-            events[index].textColor = textColor
-        }
+    func updateEvent(_ newEvent: Event) {
+        guard let index = events.firstIndex(where: { $0.id == newEvent.id }) else { return }
+        events[index] = newEvent
     }
 
     // delete event

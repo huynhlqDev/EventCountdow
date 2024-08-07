@@ -32,7 +32,11 @@ struct EventInfoView: View {
     @Environment(\.dismiss) var dismiss
 
     @State var viewType: EventInfoViewType = .addNew
+
     var event: Event?
+
+    var onSave: (Event) -> Void
+
     var body: some View {
         ZStack (alignment: .top) {List {
             // add title
@@ -140,22 +144,11 @@ struct EventInfoView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(
                     action: {
-                        let eventManager = EventsManager.shared
-                        switch viewType {
-                        case .edit:
-                            guard let event else { return }
-                            eventManager.updateEvent(
-                                id: event.id,
-                                title: title,
-                                date: date,
-                                textColor: color
-                            )
-                        case .addNew:
-                            eventManager.createEvent(
-                                title: title,
-                                date: date,
-                                color: color
-                            )
+
+                        if let id = event?.id {
+                            onSave(Event(id: id, title: title, date: date, textColor: color))
+                        } else {
+                            onSave(Event(id: UUID(), title: title, date: date, textColor: color))
                         }
                         dismiss()
                     }, label: {
@@ -169,7 +162,7 @@ struct EventInfoView: View {
         .onAppear {
             withAnimation {
                 guard let event else { return }
-                naviTitle = event.title
+                naviTitle = "Edit \(event.title)"
                 title = event.title
                 date = event.date
                 color = event.textColor
@@ -193,6 +186,8 @@ struct EventInfoView: View {
 
 #Preview {
     NavigationStack {
-        EventInfoView()
+        EventInfoView() { event in
+            EventsManager.shared.createEvent(event)
+        }
     }
 }
