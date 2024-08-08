@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		139C96472C65285F0053121B /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139C96462C65285F0053121B /* CountdownTimer.swift */; };
 		13AECB562C5A6BFA00728050 /* EventCountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB552C5A6BFA00728050 /* EventCountdownApp.swift */; };
 		13AECB582C5A6BFA00728050 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AECB572C5A6BFA00728050 /* ContentView.swift */; };
 		13AECB5A2C5A6BFB00728050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13AECB592C5A6BFB00728050 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		139C96462C65285F0053121B /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 		13AECB522C5A6BFA00728050 /* EventCountdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventCountdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13AECB552C5A6BFA00728050 /* EventCountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCountdownApp.swift; sourceTree = "<group>"; };
 		13AECB572C5A6BFA00728050 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		139C96452C6528510053121B /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				13AECB872C5A967800728050 /* EventsManager.swift */,
+				139C96462C65285F0053121B /* CountdownTimer.swift */,
+			);
+			path = manager;
+			sourceTree = "<group>";
+		};
 		13AECB492C5A6BFA00728050 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +113,7 @@
 		13AECB542C5A6BFA00728050 /* EventCountdown */ = {
 			isa = PBXGroup;
 			children = (
+				139C96452C6528510053121B /* manager */,
 				13AECB552C5A6BFA00728050 /* EventCountdownApp.swift */,
 				13AECB572C5A6BFA00728050 /* ContentView.swift */,
 				13AECB592C5A6BFB00728050 /* Assets.xcassets */,
@@ -109,7 +121,6 @@
 				13AECB7F2C5A71AA00728050 /* EventViewCell.swift */,
 				13AECB812C5A803500728050 /* EventsSidebarView.swift */,
 				13AECB832C5A953100728050 /* EventInfoView.swift */,
-				13AECB872C5A967800728050 /* EventsManager.swift */,
 			);
 			path = EventCountdown;
 			sourceTree = "<group>";
@@ -272,6 +283,7 @@
 				13AECB822C5A803500728050 /* EventsSidebarView.swift in Sources */,
 				13AECB882C5A967800728050 /* EventsManager.swift in Sources */,
 				13AECB582C5A6BFA00728050 /* ContentView.swift in Sources */,
+				139C96472C65285F0053121B /* CountdownTimer.swift in Sources */,
 				13AECB842C5A953100728050 /* EventInfoView.swift in Sources */,
 				13AECB802C5A71AA00728050 /* EventViewCell.swift in Sources */,
 				13AECB562C5A6BFA00728050 /* EventCountdownApp.swift in Sources */,

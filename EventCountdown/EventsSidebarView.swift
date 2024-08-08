@@ -15,7 +15,10 @@ struct EventsSidebarView: View {
         NavigationStack {
             List(events) { event in
                 NavigationLink(value: event) {
-                    EventViewCell(event: event)
+                    EventViewCell(
+                        countdownTimer: CountdownTimer(targetDate: event.date),
+                        event: event
+                    )
                     .swipeActions() {
                         Button(role: .destructive) {
                             EventsManager.shared.deleteEvent(id: event.id)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EventViewCell: View {
+    @ObservedObject var countdownTimer: CountdownTimer
     let event: Event
 
     var body: some View {
@@ -17,53 +18,22 @@ struct EventViewCell: View {
                     .font(.title)
                     .bold()
                     .foregroundColor(event.textColor)
-                Text(getRemainTime())
+                Text(countdownTimer.remainingTime)
             }
             Spacer()
-        }
-    }
-
-    private func getRemainTime() -> String {
-        let currentDate = Date()
-        let calendar = Calendar.current
-
-        let futureDate = Calendar.current.date(
-            byAdding: .month,
-            value: 3,
-            to: Date()
-        )!
-        let futureDateWithHours = Calendar.current.date(
-            byAdding: .hour,
-            value: 5,
-            to: event.date
-        )!
-        let components = calendar.dateComponents(
-            [.month, .hour],
-            from: currentDate,
-            to: futureDateWithHours
-        )
-        guard
-            let months = components.month,
-            let hours = components.hour
-        else {
-            return "End time"
-        }
-
-        if months == 1 {
-            return "next month"
-        } else if months > 0 {
-            return "in \(months) months"
-        } else if hours > 0 {
-            return "\(hours) hours ago"
-        } else {
-            return "End time"
         }
     }
 }
 
 #Preview {
     List {
-        EventViewCell(event: Event(title: "Ahihi", date: Date(), textColor: .blue))
-        EventViewCell(event: Event(title: "Ahihi", date: Date(), textColor: .red))
+        EventViewCell(
+            countdownTimer: CountdownTimer(targetDate: Date()),
+            event: Event(title: "Ahihi", date: Date(), textColor: .blue)
+        )
+        EventViewCell(
+            countdownTimer: CountdownTimer(targetDate: Date()),
+            event: Event(title: "Ahihi", date: Date(), textColor: .blue)
+        )
     }
 }
