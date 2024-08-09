@@ -20,7 +20,9 @@ struct EventViewCell: View {
                     .font(.title)
                     .bold()
                     .foregroundColor(event.textColor)
-                Text(dateDescription(for: event.date, relativeTo: now))
+                Text(dateDescription(for: event.date, relativeTo: now)) .onReceive(timer) { current in
+                    now = current
+                }
             }
             Spacer()
         }
