@@ -16,7 +16,6 @@ struct EventsSidebarView: View {
             List(events) { event in
                 NavigationLink(value: event) {
                     EventViewCell(
-                        countdownTimer: CountdownTimer(targetDate: event.date),
                         event: event
                     )
                     .swipeActions() {

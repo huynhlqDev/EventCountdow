@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct EventViewCell: View {
-    @ObservedObject var countdownTimer: CountdownTimer
+    @State private var now = Date.now
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     let event: Event
 
     var body: some View {
@@ -18,21 +20,26 @@ struct EventViewCell: View {
                     .font(.title)
                     .bold()
                     .foregroundColor(event.textColor)
-                Text(countdownTimer.remainingTime)
+                Text(dateDescription(for: event.date, relativeTo: now))
             }
             Spacer()
         }
+    }
+    private func dateDescription(for date: Date, relativeTo anotherDate: Date) -> String {
+        let format = RelativeDateTimeFormatter()
+        format.unitsStyle = .full
+        format.dateTimeStyle = .named
+        return format.localizedString(for: date, relativeTo: anotherDate)
+
     }
 }
 
 #Preview {
     List {
         EventViewCell(
-            countdownTimer: CountdownTimer(targetDate: Date()),
             event: Event(title: "Ahihi", date: Date(), textColor: .blue)
         )
         EventViewCell(
-            countdownTimer: CountdownTimer(targetDate: Date()),
             event: Event(title: "Ahihi", date: Date(), textColor: .blue)
         )
     }
